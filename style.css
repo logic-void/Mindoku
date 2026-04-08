@@ -189,6 +189,9 @@ body:has(.cell:hover) #selected-cell {
     overflow-x: auto;
     font-size: clamp(14px, 4vmin, 32px);
 }
+#input-section::-webkit-scrollbar{
+    display:none;
+}
 .num-input {
     border: 2px solid var(--border);
     flex-grow: 1;
