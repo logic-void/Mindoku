@@ -1,0 +1,225 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --bg: #0f172a;
+    --grid: #1e293b;
+    --cell: #0b1220;
+    --border: #334155;
+    --subgrid: #94a3b8;
+    --selected: #2563eb;
+    --hover: #1e293b;
+    --correct: #16a34a;
+    --wrong: #dc2626;
+    --highlight: #38bdf8;
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --text-accent: #ffffff;
+}
+body {
+    display: flex;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow-x: hidden;
+    flex-direction: column;
+    gap: 2rem;
+    background: var(--bg);
+    font-family: "Poppins", Sans-Serif;
+}
+#web-header {
+    background: var(--grid);
+    padding: clamp(16px, 4vmin, 40px);
+    border-radius: 20px;
+    text-align: center;
+}
+#web-header h1 {
+    color: var(--text-primary);
+    font-size: clamp(24px, 5vmin, 42px);
+}
+#web-header p {
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: clamp(9px, 1.8vmin, 13.5px);
+}
+#web-header h2 {
+    color: var(--text-primary);
+    margin-top: 1rem;
+    font-size: clamp(18px, 4vmin, 14px);
+}
+#web-header p#difficulty-text {
+    font-size: clamp(12px, 2.4vmin, 16px);
+    font-style: normal;
+    color: var(--text-primary);
+    text-transform: capitalize;
+    transition: 300ms ease;
+    position: relative;
+}
+#web-header p#difficulty-text:hover {
+    transform: scale(1.02);
+    font-weight: bold;
+}
+.difficulty-container {
+    max-height: 0;
+    overflow: hidden;
+    transition:
+        max-height 1000ms ease,
+        margin 500ms ease,
+        padding 500ms ease;
+}
+.difficulty {
+    color: var(--text-secondary);
+    text-transform: capitalize;
+    font-size: clamp(12px, 2.4vmin, 16px);
+    transition: 300ms ease;
+    border-radius: 999px;
+}
+.difficulty:hover {
+    border: 1px solid white;
+    padding: 0.5rem 0;
+    color: var(--text-primary);
+}
+.difficulty-container.active {
+    max-height: 1000px;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--text-secondary);
+}
+#start-btn {
+    padding: 1rem 1.5rem;
+    margin-top: 1rem;
+    border: 3px solid var(--border);
+    background: var(--cell);
+    border-radius: 999px;
+    color: var(--text-accent);
+    font-size: clamp(18px, 3.6vmin, 24px);
+    transition: 300ms ease;
+}
+#start-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(255, 255, 255, 0.3);
+}
+#grid {
+    background: var(--subgrid);
+    display: none;
+    width: clamp(350px, 90vmin, 800px);
+    aspect-ratio: 1;
+    gap: min(0.3vmin, 5px);
+    overflow: hidden;
+    border-radius: 5px;
+    padding: min(0.3vmin, 5px);
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+}
+.cell {
+    display: grid;
+    background: var(--cell);
+    width: 100%;
+    height: 100%;
+    color: var(--text-accent);
+    font-size: clamp(14px, 4vmin, 32px);
+    place-items: center;
+    transition: all 300ms ease;
+}
+.cell:nth-child(3n) {
+    border-right: min(0.6vmin, 10px) solid var(--subgrid);
+}
+.cell:nth-child(n + 19):nth-child(-n + 27),
+.cell:nth-child(n + 46):nth-child(-n + 54),
+.cell:nth-child(n + 73):nth-child(-n + 81) {
+    border-bottom: min(0.6vmin, 10px) solid var(--subgrid);
+}
+.cell:nth-child(1),
+.cell:nth-child(10),
+.cell:nth-child(19),
+.cell:nth-child(28),
+.cell:nth-child(37),
+.cell:nth-child(46),
+.cell:nth-child(55),
+.cell:nth-child(64),
+.cell:nth-child(73) {
+    border-left: min(0.6vmin, 10px) solid var(--subgrid);
+}
+.cell:nth-child(-n + 9) {
+    border-top: min(0.6vmin, 10px) solid var(--subgrid);
+}
+.cell.highlight {
+    color: var(--highlight);
+    border: 2px solid var(--highlight);
+    font-weight: bold;
+}
+.cell.correct {
+    color: var(--correct);
+}
+.cell.incorrect {
+    color: var(--wrong);
+}
+.cell.incorrect.highlight,
+.cell.correct.highlight {
+    font-weight: bold;
+    border: 2px solid var(--highlight);
+}
+.cell:hover {
+    anchor-name: --selected-cell;
+}
+#selected-cell {
+    position: absolute;
+    position-anchor: --selected-cell;
+    top: anchor(top);
+    bottom: anchor(bottom);
+    left: anchor(left);
+    pointer-events: none;
+    right: anchor(right);
+    background: rgba(255, 255, 255, 0.2);
+    transition: 500ms ease;
+}
+body:has(.cell:hover) #selected-cell {
+    border: 1px solid white;
+}
+#input-section {
+    display: none;
+    color: var(--text-accent);
+    width: 90vmin;
+    max-width: 800px;
+    border-radius: 10px;
+    background: var(--grid);
+    overflow-x: auto;
+    font-size: clamp(14px, 4vmin, 32px);
+}
+.num-input {
+    border: 2px solid var(--border);
+    flex-grow: 1;
+    background: var(--cell);
+    display: grid;
+    place-items: center;
+    border-radius: inherit;
+    padding: 1rem;
+    transform-origin: top;
+    transition:
+        background 300ms ease,
+        transform 800ms ease;
+}
+.num-input:hover {
+    background: var(--hover);
+}
+.num-input.disabled {
+    transform: scaleY(0);
+}
+#game-controls {
+    display: flex;
+    display: none;
+    width: min(90vmin, 800px);
+    justify-content: flex-start;
+}
+.eraser {
+    padding: min(1rem, 2vmin);
+    border-radius: 20px;
+    background: var(--text-secondary);
+}
+.eraser svg {
+    width: clamp(28px, 8vmin, 64px);
+    height: clamp(28px, 8vmin, 64px);
+}
