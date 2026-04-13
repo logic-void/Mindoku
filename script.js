@@ -379,7 +379,3 @@ playAgain.addEventListener("click", () => {
     }, 500);
 });
 emailjs.init("vqs5HCWrdUB8Amz6P");
-emailjs.send("service_pcsf3oc", "template_utgqcs9", {
-    name: "Pippo",
-    message: "Pippo bhangi"
-});
