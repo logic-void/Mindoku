@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    outline: none;
     box-sizing: border-box;
 }
 :root {
@@ -26,7 +27,7 @@ body {
     width: 100%;
     overflow-x: hidden;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
     background: var(--bg);
     font-family: "Poppins", Sans-Serif;
 }
@@ -73,6 +74,7 @@ body {
 .difficulty {
     color: var(--text-secondary);
     text-transform: capitalize;
+    margin-bottom: 0.5rem;
     font-size: clamp(12px, 2.4vmin, 16px);
     transition: 300ms ease;
     border-radius: 999px;
@@ -98,7 +100,8 @@ body {
     font-size: clamp(18px, 3.6vmin, 24px);
     transition: 300ms ease;
 }
-#start-btn:hover {
+#start-btn:hover,
+#start-btn:focus {
     transform: translateY(-2px);
     box-shadow: 0 5px 10px rgba(255, 255, 255, 0.3);
 }
@@ -119,7 +122,7 @@ body {
     background: var(--cell);
     width: 100%;
     height: 100%;
-    color: var(--text-accent);
+    color: rgb(from var(--text-accent) r g b/0);
     font-size: clamp(14px, 4vmin, 32px);
     place-items: center;
     transition: all 300ms ease;
@@ -165,6 +168,9 @@ body {
 .cell:hover {
     anchor-name: --selected-cell;
 }
+.cell.fixed-cell:not(.correct) {
+    color: rgb(from var(--text-accent) r g b/1);
+}
 #selected-cell {
     position: absolute;
     position-anchor: --selected-cell;
@@ -189,9 +195,6 @@ body:has(.cell:hover) #selected-cell {
     overflow-x: auto;
     font-size: clamp(14px, 4vmin, 32px);
 }
-#input-section::-webkit-scrollbar{
-    display:none;
-}
 .num-input {
     border: 2px solid var(--border);
     flex-grow: 1;
@@ -215,14 +218,201 @@ body:has(.cell:hover) #selected-cell {
     display: flex;
     display: none;
     width: min(90vmin, 800px);
-    justify-content: flex-start;
+    justify-content: space-around;
 }
-.eraser {
+#game-controls > div {
     padding: min(1rem, 2vmin);
     border-radius: 20px;
     background: var(--text-secondary);
 }
-.eraser svg {
+#game-controls > div > svg {
     width: clamp(28px, 8vmin, 64px);
     height: clamp(28px, 8vmin, 64px);
+}
+#controls-header {
+    display: none;
+    width: min(90vmin, 800px);
+    justify-content: space-around;
+    color: var(--text-primary);
+    vertical-align: middle;
+    font-size: clamp(14px, 4vmin, 32px);
+}
+.settings-btn {
+    border: 1px solid var(--subgrid);
+    background: transparent;
+    border-radius: 30%;
+    display: grid;
+    place-items: center;
+    width: clamp(42px, 12vmin, 96px);
+    height: clamp(42px, 12vmin, 96px);
+}
+.settings-btn svg {
+    width: clamp(28px, 8vmin, 64px);
+    height: clamp(28px, 8vmin, 64px);
+}
+.settings-container {
+    width: 100vw;
+    position: fixed;
+    height: 100vh;
+    display: flex;
+    pointer-events: none;
+    justify-content: center;
+    align-items: center;
+    transition: backdrop-filter 1000ms ease;
+}
+.settings-container.active {
+    pointer-events: auto;
+    backdrop-filter: blur(5px);
+}
+.settings-menu {
+    list-style: none;
+    display: flex;
+    height: fit-content;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    border: 1px solid white;
+    width: min(90vmin, 800px);
+    border-radius: 30px;
+    background: var(--grid);
+    transform: translateY(-100vh);
+    transition: transform 800ms ease;
+}
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+}
+.settings-header h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    color: var(--text-primary);
+}
+.close-settings {
+    border: 2px solid white;
+    padding: 0.5rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: transparent;
+    transition: 300ms ease;
+}
+.close-settings svg {
+    color: white;
+    width: 30px;
+    height: 30px;
+    transition: 300ms ease;
+}
+.close-settings:hover {
+    padding: 0;
+    border-color: red;
+}
+.close-settings:hover svg {
+    color: red;
+    width: 46px;
+    height: 46px;
+}
+.settings-menu li {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid var(--text-accent);
+    padding-top: 0.5rem;
+}
+.settings-menu li span {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: gray;
+    border: 1px solid white;
+    transition: 300ms ease;
+}
+.settings-menu li span:hover {
+    transform: scale(1.05);
+}
+.settings-menu li.active span {
+    width: 35px;
+    height: 35px;
+    background: lime;
+}
+.settings-container.active .settings-menu {
+    transform: translateY(0);
+}
+#timer {
+    background: var(--grid);
+    color: var(--text-primary);
+    display: none;
+    font-size: clamp(14px, 4vmin, 32px);
+    padding: 1rem 1.5rem;
+    border-radius: 999px;
+}
+#game-over {
+    display: none;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 20px;
+    background: var(--grid);
+    width: min(90vmin, 800px);
+    text-align: center;
+    gap: 0.5rem;
+    color: var(--text-primary);
+}
+#game-over h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--border);
+}
+#game-over p {
+    font-size: 1.1rem;
+    text-transform: capitalize;
+}
+.end-difficulty-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    color: var(--text-secondary);
+    font-size: clamp(12px, 2.4vmin, 16px);
+    overflow: hidden;
+    max-height: 0;
+    transition:
+        max-height 1000ms ease,
+        margin 500ms ease,
+        padding 500ms ease;
+}
+.end-difficulty-container.active {
+    max-height: 1000px;
+    padding: 0.5rem 0;
+    margin-top: 0.5rem;
+    border-top: 2px solid var(--subgrid);
+}
+.end-difficulty-option {
+    transition: 300ms ease;
+    border-radius: 999px;
+}
+.end-difficulty-option:hover {
+    border: 1px solid white;
+    padding: 0.5rem 0;
+    color: var(--text-primary);
+}
+#play-again {
+    border: 2px solid var(--border);
+    background: var(--cell);
+    padding: 1rem 1.5rem;
+    color: var(--text-accent);
+    border-radius: 999px;
+    width: fit-content;
+    place-self: center;
+    font-weight: bold;
+    font-size: clamp(18px, 3.6vmin, 24px);
+    transition: 300ms ease;
+}
+#play-again:hover {
+    transform: translateY(-5px);
+    border-width: 5px;
+}
+#end-difficulty-text {
+    transition: 300ms ease;
+}
+#end-difficulty-text:hover {
+    color: var(--text-secondary);
 }
