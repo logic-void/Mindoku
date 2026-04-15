@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Mindoku</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div id="web-header">
+            <h1>Mindoku</h1>
+            <p>By Maalkin's Billa</p>
+            <h2>Choose difficulty:-</h2>
+            <p id="difficulty-text">medium</p>
+            <div class="difficulty-container">
+                <div class="difficulty">easy</div>
+                <div class="difficulty">medium</div>
+                <div class="difficulty">hard</div>
+            </div>
+            <button id="start-btn">Start Game</button>
+        </div>
+        <div id="game-over">
+            <h2 id="end-text">Good job</h2>
+            <p>Time taken - <span id="end-time">00:00:00</span></p>
+            <p>difficulty - <span id="end-difficulty"></span></p>
+            <p>Mistakes - <span id="end-mistakes"></span></p>
+            <p>Hints used - <span id="hints-used">0</span></p>
+            <p>Change difficulty:-</p>
+            <p id="end-difficulty-text">easy</p>
+            <div class="end-difficulty-container">
+                <div class="end-difficulty-option">easy</div>
+                <div class="end-difficulty-option">medium</div>
+                <div class="end-difficulty-option">hard</div>
+            </div>
+            <button id="play-again">Play again</button>
+        </div>
+        <div id="selected-cell"></div>
+        <div id="timer">Timer - 00:00:00</div>
+        <div id="controls-header">
+            <button class="settings-btn">
+                <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                <svg
+                    width="40px"
+                    height="40px"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <circle
+                        cx="12"
+                        cy="12"
+                        r="3"
+                        stroke="#fff"
+                        stroke-width="1.5"
+                    />
+                    <path
+                        opacity="0.5"
+                        d="M13.7654 2.15224C13.3978 2 12.9319 2 12 2C11.0681 2 10.6022 2 10.2346 2.15224C9.74457 2.35523 9.35522 2.74458 9.15223 3.23463C9.05957 3.45834 9.0233 3.7185 9.00911 4.09799C8.98826 4.65568 8.70226 5.17189 8.21894 5.45093C7.73564 5.72996 7.14559 5.71954 6.65219 5.45876C6.31645 5.2813 6.07301 5.18262 5.83294 5.15102C5.30704 5.08178 4.77518 5.22429 4.35436 5.5472C4.03874 5.78938 3.80577 6.1929 3.33983 6.99993C2.87389 7.80697 2.64092 8.21048 2.58899 8.60491C2.51976 9.1308 2.66227 9.66266 2.98518 10.0835C3.13256 10.2756 3.3397 10.437 3.66119 10.639C4.1338 10.936 4.43789 11.4419 4.43786 12C4.43783 12.5581 4.13375 13.0639 3.66118 13.3608C3.33965 13.5629 3.13248 13.7244 2.98508 13.9165C2.66217 14.3373 2.51966 14.8691 2.5889 15.395C2.64082 15.7894 2.87379 16.193 3.33973 17C3.80568 17.807 4.03865 18.2106 4.35426 18.4527C4.77508 18.7756 5.30694 18.9181 5.83284 18.8489C6.07289 18.8173 6.31632 18.7186 6.65204 18.5412C7.14547 18.2804 7.73556 18.27 8.2189 18.549C8.70224 18.8281 8.98826 19.3443 9.00911 19.9021C9.02331 20.2815 9.05957 20.5417 9.15223 20.7654C9.35522 21.2554 9.74457 21.6448 10.2346 21.8478C10.6022 22 11.0681 22 12 22C12.9319 22 13.3978 22 13.7654 21.8478C14.2554 21.6448 14.6448 21.2554 14.8477 20.7654C14.9404 20.5417 14.9767 20.2815 14.9909 19.902C15.0117 19.3443 15.2977 18.8281 15.781 18.549C16.2643 18.2699 16.8544 18.2804 17.3479 18.5412C17.6836 18.7186 17.927 18.8172 18.167 18.8488C18.6929 18.9181 19.2248 18.7756 19.6456 18.4527C19.9612 18.2105 20.1942 17.807 20.6601 16.9999C21.1261 16.1929 21.3591 15.7894 21.411 15.395C21.4802 14.8691 21.3377 14.3372 21.0148 13.9164C20.8674 13.7243 20.6602 13.5628 20.3387 13.3608C19.8662 13.0639 19.5621 12.558 19.5621 11.9999C19.5621 11.4418 19.8662 10.9361 20.3387 10.6392C20.6603 10.4371 20.8675 10.2757 21.0149 10.0835C21.3378 9.66273 21.4803 9.13087 21.4111 8.60497C21.3592 8.21055 21.1262 7.80703 20.6602 7C20.1943 6.19297 19.9613 5.78945 19.6457 5.54727C19.2249 5.22436 18.693 5.08185 18.1671 5.15109C17.9271 5.18269 17.6837 5.28136 17.3479 5.4588C16.8545 5.71959 16.2644 5.73002 15.7811 5.45096C15.2977 5.17191 15.0117 4.65566 14.9909 4.09794C14.9767 3.71848 14.9404 3.45833 14.8477 3.23463C14.6448 2.74458 14.2554 2.35523 13.7654 2.15224Z"
+                        stroke="#fff"
+                        stroke-width="1.5"
+                    />
+                </svg>
+            </button>
+            <p>Mistakes: <span id="mistake-text">0</span></p>
+        </div>
+        <div id="grid">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+        <div id="game-controls">
+            <div class="eraser">
+                <?xml version="1.0" encoding="utf-8"?>
+                <svg
+                    width="50px"
+                    height="50px"
+                    viewBox="0 0 20.24 20.24"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <g id="eraser-3" transform="translate(-1.881 -1.881)">
+                        <path
+                            id="primary"
+                            d="M10.36,20.71a1,1,0,0,1-1.41,0L3.29,15.05a1,1,0,0,1,0-1.41L13.64,3.29a1,1,0,0,1,1.41,0L20.71,9a1,1,0,0,1,0,1.41ZM3.29,13.64,6.83,10.1l7.06,7.07-3.53,3.54a1,1,0,0,1-1.41,0L3.29,15.05A1,1,0,0,1,3.29,13.64ZM10,21h8"
+                            fill="#fff"
+                            stroke="#000"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                        />
+                        <path
+                            id="secondary"
+                            fill="#2ca9bc"
+                            d="M6.83,10.1l6.81-6.81a1,1,0,0,1,1.41,0L20.71,9a1,1,0,0,1,0,1.41l-6.82,6.81Z"
+                        />
+                    </g>
+                </svg>
+            </div>
+            <div class="hint-btn">
+                <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                <svg
+                    width="800px"
+                    height="800px"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M12 7C9.23858 7 7 9.23858 7 12C7 13.3613 7.54402 14.5955 8.42651 15.4972C8.77025 15.8484 9.05281 16.2663 9.14923 16.7482L9.67833 19.3924C9.86537 20.3272 10.6862 21 11.6395 21H12.3605C13.3138 21 14.1346 20.3272 14.3217 19.3924L14.8508 16.7482C14.9472 16.2663 15.2297 15.8484 15.5735 15.4972C16.456 14.5955 17 13.3613 17 12C17 9.23858 14.7614 7 12 7Z"
+                        stroke="#ffff00"
+                        stroke-width="2"
+                    />
+                    <path
+                        d="M12 4V3"
+                        stroke="#ffff00"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                    <path
+                        d="M18 6L19 5"
+                        stroke="#ffff00"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                    <path
+                        d="M20 12H21"
+                        stroke="#ffff00"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                    <path
+                        d="M4 12H3"
+                        stroke="#ffff00"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                    <path
+                        d="M5 5L6 6"
+                        stroke="#ffff00"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                    <path
+                        d="M10 17H14"
+                        stroke="#ffff00"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                    <path
+                        opacity="0.1"
+                        d="M7 12C7 9.23858 9.23858 7 12 7C14.7614 7 17 9.23858 17 12C17 13.3613 16.456 14.5955 15.5735 15.4972C15.2297 15.8484 14.9472 16.2663 14.8508 16.7482L14.8004 17H9.19961L9.14923 16.7482C9.05281 16.2663 8.77025 15.8484 8.42651 15.4972C7.54402 14.5955 7 13.3613 7 12Z"
+                        fill="#ffff00"
+                    />
+                </svg>
+            </div>
+        </div>
+        <div id="input-section">
+            <div class="num-input">1</div>
+            <div class="num-input">2</div>
+            <div class="num-input">3</div>
+            <div class="num-input">4</div>
+            <div class="num-input">5</div>
+            <div class="num-input">6</div>
+            <div class="num-input">7</div>
+            <div class="num-input">8</div>
+            <div class="num-input">9</div>
+        </div>
+        <div class="settings-container">
+            <ul class="settings-menu">
+                <div class="settings-header">
+                    <h2>Settings</h2>
+                    <button class="close-settings">
+                        <?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                        <svg
+                            width="80px"
+                            height="80px"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM8.96963 8.96965C9.26252 8.67676 9.73739 8.67676 10.0303 8.96965L12 10.9393L13.9696 8.96967C14.2625 8.67678 14.7374 8.67678 15.0303 8.96967C15.3232 9.26256 15.3232 9.73744 15.0303 10.0303L13.0606 12L15.0303 13.9696C15.3232 14.2625 15.3232 14.7374 15.0303 15.0303C14.7374 15.3232 14.2625 15.3232 13.9696 15.0303L12 13.0607L10.0303 15.0303C9.73742 15.3232 9.26254 15.3232 8.96965 15.0303C8.67676 14.7374 8.67676 14.2625 8.96965 13.9697L10.9393 12L8.96963 10.0303C8.67673 9.73742 8.67673 9.26254 8.96963 8.96965Z"
+                                fill="currentColor"
+                            />
+                        </svg>
+                    </button>
+                </div>
+                <li data-toggle="mistakes">
+                    Mistake limit
+                    <span></span>
+                </li>
+                <li data-toggle="hints">
+                    Hints
+                    <span></span>
+                </li>
+                <button id="send-feedback">Send feedback</button>
+            </ul>
+        </div>
+        <div id="feedback-menu">
+            <h2>Sending Feedback</h2>
+            <input
+                id="name-input"
+                placeholder="Your Name"
+                type="text"
+                required
+            />
+            <textarea
+                required
+                placeholder="Your Message"
+                id="message-input"
+            ></textarea>
+            <div class="button-container">
+                <button id="cancel-feedback">Cancel</button>
+                <button id="process-feedback">Send</button>
+            </div>
+            <p id="feedback-result">A result text</p>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+        <script src="script.js" defer></script>
+    </body>
+</html>
