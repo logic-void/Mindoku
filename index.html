@@ -14,7 +14,7 @@
     <body>
         <div id="web-header">
             <h1>Mindoku</h1>
-            <p>By Maalkin's Billa</p>
+            <p>By ...</p>
             <h2>Choose difficulty:-</h2>
             <p id="difficulty-text">medium</p>
             <div class="difficulty-container">
@@ -29,6 +29,7 @@
             <p>Time taken - <span id="end-time">00:00:00</span></p>
             <p>difficulty - <span id="end-difficulty"></span></p>
             <p>Mistakes - <span id="end-mistakes"></span></p>
+            <p>Hints used - <span id="hints-used">0</span></p>
             <p>Change difficulty:-</p>
             <p id="end-difficulty-text">easy</p>
             <div class="end-difficulty-container">
@@ -253,7 +254,7 @@
             <div class="num-input">9</div>
         </div>
         <div class="settings-container">
-            <ul class="settings-menu active">
+            <ul class="settings-menu">
                 <div class="settings-header">
                     <h2>Settings</h2>
                     <button class="close-settings">
@@ -282,7 +283,27 @@
                     Hints
                     <span></span>
                 </li>
+                <button id="send-feedback">Send feedback</button>
             </ul>
+        </div>
+        <div id="feedback-menu">
+            <h2>Sending Feedback</h2>
+            <input
+                id="name-input"
+                placeholder="Your Name"
+                type="text"
+                required
+            />
+            <textarea
+                required
+                placeholder="Your Message"
+                id="message-input"
+            ></textarea>
+            <div class="button-container">
+                <button id="cancel-feedback">Cancel</button>
+                <button id="process-feedback">Send</button>
+            </div>
+            <p id="feedback-result">A result text</p>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
         <script src="script.js" defer></script>

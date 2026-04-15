@@ -27,10 +27,19 @@ const endDifficulties = Array.from(
 );
 const playAgain = document.getElementById("play-again");
 const endMistake = document.getElementById("end-mistakes");
+const hintsUsedText = document.getElementById("hints-used");
+const feedbackBtn = document.getElementById("send-feedback");
+const feedbackMenu = document.getElementById("feedback-menu");
+const nameInput = document.getElementById("name-input");
+const messageInput = document.getElementById("message-input");
+const cancelFeedback = document.getElementById("cancel-feedback");
+const processFeedback = document.getElementById("process-feedback");
+const feedbackResult = document.getElementById("feedback-result");
 const clickEvent = new Event("click");
 let selectedCell;
 let startTime;
 let accumulatedTime = 0;
+let hintsUsed = 0;
 let pauseStart;
 let timerId;
 let puzzle;
@@ -119,11 +128,22 @@ hintBtn.addEventListener("click", () => {
     let cellAnswer;
     if (selectedCell && !selectedCell.classList.contains("fixed-cell")) {
         const cellIndex = cells.indexOf(selectedCell);
+        hintsUsed++;
         cellAnswer = solution[Math.floor(cellIndex / 9)][cellIndex % 9];
         selectedCell.textContent = cellAnswer;
         selectedCell.classList.remove("incorrect");
         selectedCell.classList.add("correct");
         selectedCell.classList.add("fixed-cell");
+        if (cells.every(cell => cell.classList.contains("fixed-cell"))) {
+            cancelAnimationFrame(timerId);
+            document.getElementById("grid").style.display = "none";
+            timer.style.display = "none";
+            document.getElementById("controls-header").style.display = "none";
+            document.getElementById("game-controls").style.display = "none";
+            document.getElementById("input-section").style.display = "none";
+            gameOver.style.display = "flex";
+            showGameOver("Well done, you know your stuff!");
+        }
     }
     let numCount = 0;
     cells.forEach(eachCell => {
@@ -339,6 +359,7 @@ endDifficultyText.addEventListener("click", () => {
 });
 function showGameOver(endingText) {
     endText.textContent = endingText;
+    hintsUsedText.textContent = hintsUsed;
     endTime.textContent = timer.textContent.slice(8);
     endMistake.textContent = mistakeText.textContent;
 }
@@ -359,6 +380,7 @@ playAgain.addEventListener("click", () => {
     controlsHeader.style.display = "flex";
     timer.style.display = "block";
     mistakeText.textContent = 0;
+    hintsUsed = 0;
     cells.forEach(cell => {
         cell.textContent = "";
         cell.classList.remove("fixed-cell");
@@ -377,5 +399,39 @@ playAgain.addEventListener("click", () => {
     setTimeout(() => {
         loadNumbers(puzzle);
     }, 500);
+});
+document.addEventListener("keydown", function (event) {
+    if (event.key >= "1" && event.key <= "9") {
+        numInputs[parseInt(event.key, 10) - 1].dispatchEvent(clickEvent);
+    }
+});
+function sendFeedback() {
+    feedbackMenu.classList.toggle("active");
+}
+feedbackBtn.addEventListener("click", sendFeedback);
+cancelFeedback.addEventListener("click", sendFeedback);
+processFeedback.addEventListener("click", () => {
+    const name = nameInput.value;
+    const message = messageInput.value;
+    if (name && message) {
+        emailjs
+            .send("service_pcsf3oc", "template_utgqcs9", {
+                name,
+                message
+            })
+            .then(() => {
+                nameInput.value = "";
+                messageInput.value = "";
+                feedbackResult.classList.remove("not-sent");
+                feedbackResult.classList.add("sent");
+                feedbackResult.textContent = "Feedback sent successfully!";
+            })
+            .catch(() => {
+                feedbackResult.classList.add("not-sent");
+                feedbackResult.classList.remove("sent");
+                feedbackResult.textContent =
+                    "Feedback not sent due to some issues..";
+            });
+    }
 });
 emailjs.init("vqs5HCWrdUB8Amz6P");

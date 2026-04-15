@@ -195,6 +195,9 @@ body:has(.cell:hover) #selected-cell {
     overflow-x: auto;
     font-size: clamp(14px, 4vmin, 32px);
 }
+#input-section::-webkit-scrollbar {
+  display: none;
+}
 .num-input {
     border: 2px solid var(--border);
     flex-grow: 1;
@@ -415,4 +418,108 @@ body:has(.cell:hover) #selected-cell {
 }
 #end-difficulty-text:hover {
     color: var(--text-secondary);
+}
+#send-feedback {
+    padding: 0.8rem 1.2rem;
+    font-size: clamp(12px, 2.4vmin, 16px);
+    background: var(--selected);
+    width: fit-content;
+    place-self: center;
+    border: 2px solid white;
+    font-weight: bold;
+    border-radius: 999px;
+    color: var(--text-accent);
+    transition: 300ms ease;
+}
+#send-feedback:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    transform: scale(0.95);
+}
+#feedback-menu {
+    width: min(90vmin, 800px);
+    position: fixed;
+    margin: auto;
+    display: none;
+    flex-direction: column;
+    padding: 1.5rem;
+    background: var(--grid);
+    border-radius: 10px;
+    gap: 1rem;
+}
+#feedback-menu.active {
+    display: flex;
+}
+#feedback-menu h2 {
+    color: var(--text-primary);
+    padding-bottom: 0.5rem;
+    font-size: clamp(18px, 3.6vmin, 24px);
+    text-align: center;
+    border-bottom: 2px solid var(--cell);
+}
+#name-input,
+#message-input {
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    width: 100%;
+    font-size: clamp(12px, 2.4vmin, 16px);
+    background: var(--cell);
+    border-radius: 10px;
+    caret-color: var(--text-accent);
+    color: var(--text-primary);
+    transition: 500ms ease;
+}
+#name-input::placeholder,
+#message-input::placeholder {
+    color: var(--text-secondary);
+    transition: 300ms ease;
+}
+#name-input:focus,
+#message-input:focus {
+    padding: 0.8rem;
+    outline: 1px solid var(--text-accent);
+}
+#name-input:focus::placeholder,
+#message-input:focus::placeholder {
+    font-weight: bold;
+    color: var(--text-primary);
+}
+#name-input:invalid,
+#message-input:invalid {
+    outline: 1px solid red;
+}
+.button-container {
+    display: flex;
+    justify-content: space-around;
+}
+.button-container button {
+    border: 2px solid white;
+    color: var(--text-accent);
+    border-radius: 20px;
+    font-size: clamp(18px, 3.6vmin, 24px);
+    font-weight: bold;
+    padding: 0.5rem 2rem;
+    transition: 300ms ease;
+}
+#cancel-feedback {
+    background: var(--wrong);
+}
+#process-feedback {
+    background: var(--correct);
+}
+.button-container button:hover {
+    transform: translateY(-3px);
+}
+#feedback-result {
+    font-size: clamp(12px, 2.4vmin, 16px);
+    display: none;
+    text-align: center;
+}
+#feedback-result.sent {
+    color: var(--correct);
+    display: block;
+}
+#feedback-result.not-sent {
+    color: var(--wrong);
+    display: block;
 }
